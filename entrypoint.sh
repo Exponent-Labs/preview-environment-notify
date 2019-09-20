@@ -26,6 +26,8 @@ else
   message = "A preview environment has been created.\nFrontend URL: #{frontend_url}\nBackend URL: #{admin_url}"
 end
 
+puts "Message: #{message}"
+
 repo = push["repository"]["full_name"]
 pulls = github.pull_requests(repo, state: "open")
 
