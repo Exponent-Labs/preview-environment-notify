@@ -13,9 +13,17 @@ if !ENV["GITHUB_TOKEN"]
   exit(1)
 end
 
-if ARGV.empty?
-  puts "Missing message argument."
-  exit(1)
+# if ARGV.empty?
+#   puts "Missing message argument."
+#   exit(1)
+# end
+
+if ENV["destroyed"]
+  message = "The preview environment has been destroyed."
+else
+  frontend_url = ENV["FRONTEND_URL"]
+  admin_url = ENV["ADMIN_URL"]
+  message = "A preview environment has been created.\nFrontend URL: #{frontend_url}\nBackend URL: #{admin_url}"
 end
 
 repo = push["repository"]["full_name"]
@@ -29,10 +37,10 @@ if !pr
   exit(1)
 end
 
-message = ARGV.join(' ')
+# message = ARGV.join(' ')
 
 coms = github.issue_comments(repo, pr["number"])
-duplicate = coms.find { |c| c["user"]["login"] == 'github-actions[bot]' and c["body"] == message }
+duplicate = coms.find { |c| c["user"]["login"] == 'github-actions[bot]' && c["body"] == message }
 
 if duplicate
   puts "The PR already contains a database change notification"
