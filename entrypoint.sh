@@ -18,7 +18,7 @@ end
 #   exit(1)
 # end
 
-if ENV["destroyed"]
+if ENV["ENV_DESTROYED"]
   message = "The preview environment has been destroyed."
 else
   frontend_url = ENV["FRONTEND_URL"]
