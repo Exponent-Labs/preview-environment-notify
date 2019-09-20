@@ -29,13 +29,13 @@ end
 puts "Message: #{message}"
 
 repo = push["repository"]["full_name"]
-pulls = github.pull_requests(repo, state: "open")
+pulls = github.pull_requests(repo)
 
 push_head = push["after"]
 pr = pulls.find { |pr| pr["head"]["sha"] == push_head }
 
 if !pr
-  puts "Couldn't find an open pull request for branch with head at #{push_head}."
+  puts "Couldn't find a pull request for branch with head at #{push_head}."
   exit(1)
 end
 
